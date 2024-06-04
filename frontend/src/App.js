@@ -1,5 +1,3 @@
-/* eslint-disable */
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./AuthContext.js";
 import { Navigate } from "react-router-dom";
@@ -25,7 +23,8 @@ import InfoPagos from "./componentes/infoPagos.js";
 import ComponenteCED from "./componentes/componentesCED.js";
 import ComponenteInquilino from "./componentes/componentesInquilino.js";
 import GestionCondominios from "./componentes/gestionCondominios.js";
-import { SERVER_URL } from "./config.js";
+import RegistrarCuota from "./componentes/registrarCuota.js";
+import EditarCuota from "./componentes/editarCuota.js";
 
 function PrivateRoute({ children }) {
   const { authToken } = useAuth();
@@ -231,6 +230,26 @@ function App() {
               <PrivateRoute>
                 <Layout>
                   <GestionCondominios />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/RegistrarCuotas"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <RegistrarCuota />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/EditarCuotas"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <EditarCuota />
                 </Layout>
               </PrivateRoute>
             }
