@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -96,7 +96,7 @@ function NuevoCondominio() {
         />
         {<div className="error-message">{errorCorreo}</div>}
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label className="labelInput">Direccion del condominio: </label>
         <input
           type="text"
@@ -108,7 +108,7 @@ function NuevoCondominio() {
         />
         {<div className="error-message">{errorContraseña}</div>}
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label className="labelInput">Administrador a cargo:</label>
         <select
           id="admin_condominio"

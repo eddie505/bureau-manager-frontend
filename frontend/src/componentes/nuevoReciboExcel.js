@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { IoIosCreate } from "react-icons/io";
@@ -117,7 +117,17 @@ function NuevoReciboExcel() {
         return;
       }
       const rango = XLSX.utils.decode_range(worksheet["!ref"]);
-      rango.s.r = 7;
+      let startRow = 0;
+      for (let row = rango.s.r; row <= rango.e.r; row++) {
+        const celdaDir = { c: 0, r: row };
+        const celdaRef = XLSX.utils.encode_cell(celdaDir);
+        const celda = worksheet[celdaRef];
+        if (celda && celda.v) {
+          startRow = row + 1;
+          break;
+        }
+      }
+      rango.s.r = startRow;
       rango.e.c = 12;
       const datos = XLSX.utils.sheet_to_json(worksheet, {
         header: 1,
@@ -494,9 +504,16 @@ function NuevoReciboExcel() {
         </button>
       </Link>
       <form className="fromInquilino" onSubmit={handleSubmit}>
+        <p style={{ textAlign: "justify" }}>
+          <b> NOTA:</b> Para poder utilizar esta función y llevar a cabo este
+          proceso, es necesario que se hayan registrado todos los departamentos
+          pertenecientes al condominio y edificio seleccionados, así como los
+          inquilinos correspondientes a cada departamento.
+        </p>
+        <br />
         <div className="select-container">
           <div className="select-item">
-            <label>Seleccione un condominio:</label>
+            <label className="labelInput">Seleccione un condominio:</label>
             <select
               onChange={handleCondominioChange}
               value={selectedCondominio}
@@ -513,7 +530,7 @@ function NuevoReciboExcel() {
             </select>
           </div>
           <div className="select-item">
-            <label>Seleccione un edificio:</label>
+            <label className="labelInput">Seleccione un edificio:</label>
             <select
               onChange={handleEdificioChange}
               value={selectedEdificio}
@@ -528,7 +545,9 @@ function NuevoReciboExcel() {
             </select>
           </div>
           <div className="select-item">
-            <label>Mes en el que se hicieron los pagos:</label>
+            <label className="labelInput">
+              Mes en el que se hicieron los pagos:
+            </label>
             <input
               type="month"
               onChange={handleMesChange}
@@ -538,7 +557,7 @@ function NuevoReciboExcel() {
         </div>
         <div className="select-container">
           <div className="select-item">
-            <label>Seleccione un archivo Excel:</label>
+            <label className="labelInput">Seleccione un archivo Excel:</label>
             <input
               type="file"
               accept=".xlsx"

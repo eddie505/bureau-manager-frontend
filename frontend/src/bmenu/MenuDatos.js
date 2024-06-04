@@ -1,10 +1,9 @@
-/* eslint-disable */
-import React from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
+import * as VscIcons from "react-icons/vsc";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
 export const MenuDatos = [
@@ -27,6 +26,12 @@ export const MenuDatos = [
     cName: "nav-text",
   },
   {
+    title: "Administrar cuotas",
+    path: "/RegistrarCuotas",
+    icon: <MdIcons.MdOutlinePayments />,
+    cName: "nav-text",
+  },
+  {
     title: "Crear Recibos",
     path: "/NuevoRecibo",
     icon: <IoIcons.IoIosCreate />,
@@ -41,7 +46,7 @@ export const MenuDatos = [
   {
     title: "Consultar pagos",
     path: "/InfoPagos",
-    icon: <MdIcons.MdOutlinePayments />,
+    icon: <VscIcons.VscGraphLine />,
     cName: "nav-text",
   },
   {

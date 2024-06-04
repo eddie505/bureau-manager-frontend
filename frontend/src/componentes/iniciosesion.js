@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../img/logo2.png";
@@ -112,7 +112,7 @@ function Formulario() {
       </div>
       <h1>Bureau-Manager</h1>
       <h2>Iniciar Sesión</h2>
-      <div class="form-group">
+      <div className="form-group">
         <input
           type="email"
           id="correo_administrador"
@@ -123,7 +123,7 @@ function Formulario() {
         />
         {<div className="error-message">{errorCorreo}</div>}
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <input
           type="password"
           id="contraseña_administrador"

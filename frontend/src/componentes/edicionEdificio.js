@@ -1,6 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -212,21 +211,21 @@ function EditoEdificio() {
   return (
     <form onSubmit={handleSubmit} className="formulario2">
       <h1>Editar Edificio</h1>
-      <div class="form-group">
+      <div className="form-group">
         <label className="labelInput">Seleccione un condominio: </label>
         <select id="opciones" onChange={handleChangeSelect}>
           {opcionesCondominio}
         </select>
         <div className="error-message">{error}</div>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label className="labelInput">Seleccione un Edificio: </label>
         <select id="opciones" onChange={handleChangeSelectEdificios}>
           {opcionesEdificio}
         </select>
         <div className="error-message">{errorEdificio}</div>
       </div>
-      <div class="form-group">
+      <div className="form-group">
         <label className="labelInput">Nombre del Edificio: </label>
         <input
           type="text"
