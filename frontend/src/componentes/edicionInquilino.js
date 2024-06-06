@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -489,11 +489,18 @@ function EditoInquilino() {
       setErrorApellidoM("Debe ingresar un apellido materno");
       return;
     }
-
+    const trimmedNombreInquilino = formulario.nombre_inquilino.trim();
+    const trimmedApellidoP = formulario.apellino_paterno_inquilino.trim();
+    const trimmedApellidoM = formulario.apellino_materno_inquilino.trim();
     try {
       const resultado = await axios.post(
         `${REACT_APP_SERVER_URL}/api/actualizarInquilino`,
-        formulario
+        {
+          ...formulario,
+          nombre_inquilino: trimmedNombreInquilino,
+          apellino_paterno_inquilino: trimmedApellidoP,
+          apellino_materno_inquilino: trimmedApellidoM,
+        }
       );
       if (resultado.data === 200) {
         setVisible(true);

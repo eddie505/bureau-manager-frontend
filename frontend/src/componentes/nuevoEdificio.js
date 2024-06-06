@@ -91,10 +91,29 @@ function NuevoEdificio() {
       setErrorEdificio("Ingrese un nombre para el edificio");
       return;
     }
+    const trimmedNombreEdificio = formulario.nombre_edificio.trim();
     try {
+      const response = await axios.post(
+        `${REACT_APP_SERVER_URL}/api/getEdificiosbyCondominio`,
+        {
+          id_condominio: formulario.id_condominio,
+        }
+      );
+
+      const edificioExistente = response.data.some(
+        (edificio) => edificio.nombre_edificio === trimmedNombreEdificio
+      );
+      if (edificioExistente) {
+        setErrorEdificio("El edificio ya existe en este condominio");
+        return;
+      }
+
       const resultado = await axios.post(
         `${REACT_APP_SERVER_URL}/api/registrarEdificio`,
-        formulario
+        {
+          ...formulario,
+          nombre_edificio: trimmedNombreEdificio,
+        }
       );
       if (resultado.data === 200) {
         setVisible(true);

@@ -1,8 +1,7 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import e from "connect-flash";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -253,12 +252,12 @@ function NuevoRecibo() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormulario((prevState) => ({ ...prevState, [name]: value }));
+    setFormulario((prevState) => ({ ...prevState, [name]: value.trim() }));
   };
 
   const handleChange2 = (event) => {
     const { name, value } = event.target;
-    setFormulario2((prevState) => ({ ...prevState, [name]: value }));
+    setFormulario2((prevState) => ({ ...prevState, [name]: value.trim() }));
   };
 
   const handleChangeSelect = (event) => {

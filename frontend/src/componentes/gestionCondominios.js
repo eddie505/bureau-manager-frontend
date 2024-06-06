@@ -1,10 +1,10 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { REACT_APP_SERVER_URL } from "../config.js";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 function CondominiosComponent() {
   const authData = JSON.parse(localStorage.getItem("authData"));
@@ -14,9 +14,19 @@ function CondominiosComponent() {
   const [selectedCondominio, setSelectedCondominio] = useState(null);
   const [selectedEdificio, setSelectedEdificio] = useState(null);
   const [inquilinos, setInquilinos] = useState([]);
+  const [cuotas, setCuotas] = useState([]);
 
   const [paginaActual, setPaginaActual] = useState(1);
   const [registrosPorPagina] = useState(10);
+
+  const indiceUltimoRegistro = paginaActual * registrosPorPagina;
+  const indicePrimerRegistro = indiceUltimoRegistro - registrosPorPagina;
+  const inquilinosActuales = inquilinos.slice(
+    indicePrimerRegistro,
+    indiceUltimoRegistro
+  );
+
+  const cambiarPagina = (numeroPagina) => setPaginaActual(numeroPagina);
 
   useEffect(() => {
     fetchCondominios();
@@ -68,9 +78,22 @@ function CondominiosComponent() {
           { id_edificio: edificio.id_edificio }
         );
         setSelectedEdificio({ ...edificio, departamentos: response.data });
+        fetchCuotasbyEdificio(edificio.id_edificio);
       } catch (error) {
         console.error("Error al obtener departamentos", error);
       }
+    }
+  };
+
+  const fetchCuotasByEdificio = async (id_edificio) => {
+    try {
+      const results = await axios.get(
+        `${REACT_APP_SERVER_URL}/api/obtenerCuota/${id_edificio}`
+      );
+      setCuotas(results.data[0]);
+      console.log(cuotas);
+    } catch (error) {
+      console.error("Error al obtener las cuotas", error);
     }
   };
 
@@ -80,6 +103,7 @@ function CondominiosComponent() {
         `${REACT_APP_SERVER_URL}/api/getInquilinosByCondominio?id_condominio=${id_condominio}`
       );
       setInquilinos(response.data);
+      setPaginaActual(1);
     } catch (error) {
       console.error("Error al obtener inquilinos", error);
     }
@@ -143,6 +167,14 @@ function CondominiosComponent() {
                           edificio.id_edificio && (
                           <div>
                             <p style={{ textAlign: "left" }}>
+                              Cuota ordinaria base: ${cuotas.cuota_base}
+                            </p>
+                            <p style={{ textAlign: "left" }}>
+                              Cuota ordinaria por estacionamiento: $
+                              {cuotas.cuota_extra}
+                            </p>
+                            <br />
+                            <p style={{ textAlign: "left" }}>
                               Número de departamentos en este edificio:{" "}
                               {selectedEdificio.departamentos.length}
                             </p>
@@ -173,28 +205,55 @@ function CondominiosComponent() {
                 <h4>Inquilinos: </h4>
                 <br />
                 {inquilinos.length > 0 && (
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Nombre Completo</th>
-                        <th>Correo</th>
-                        <th>Código</th>
-                        <th>Departamento</th>
-                        <th>Edificio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {inquilinos.map((inquilino) => (
-                        <tr key={inquilino.id_inquilino}>
-                          <td>{`${inquilino.nombre_inquilino} ${inquilino.apellino_paterno_inquilino} ${inquilino.apellino_materno_inquilino}`}</td>
-                          <td>{inquilino.correo_inquilino}</td>
-                          <td>{inquilino.codigo_inquilino}</td>
-                          <td>{inquilino.numero_departamento}</td>
-                          <td>{inquilino.nombre_edificio}</td>
+                  <div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Nombre Completo</th>
+                          <th>Correo</th>
+                          <th>Código</th>
+                          <th>Departamento</th>
+                          <th>Edificio</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {inquilinosActuales.map((inquilino) => (
+                          <tr key={inquilino.id_inquilino}>
+                            <td>{`${inquilino.nombre_inquilino} ${inquilino.apellino_paterno_inquilino} ${inquilino.apellino_materno_inquilino}`}</td>
+                            <td>{inquilino.correo_inquilino}</td>
+                            <td>{inquilino.codigo_inquilino}</td>
+                            <td>{inquilino.numero_departamento}</td>
+                            <td>{inquilino.nombre_edificio}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    {inquilinos.length > registrosPorPagina && (
+                      <div className="navegacion-pag">
+                        <button
+                          onClick={() => cambiarPagina(paginaActual - 1)}
+                          disabled={paginaActual === 1}
+                          className="btn-pag"
+                        >
+                          <FaArrowCircleLeft /> Anterior
+                        </button>
+                        <span className="span-pag">
+                          Página {paginaActual} de{" "}
+                          {Math.ceil(inquilinos.length / registrosPorPagina)}
+                        </span>
+                        <button
+                          onClick={() => cambiarPagina(paginaActual + 1)}
+                          disabled={
+                            paginaActual ===
+                            Math.ceil(inquilinos.length / registrosPorPagina)
+                          }
+                          className="btn-pag"
+                        >
+                          Siguiente <FaArrowCircleRight />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             )}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -310,7 +310,9 @@ function NuevoInquilino() {
       setErrorApellidoM("Debe ingresar un apellido materno");
       return;
     }
-
+    const trimmedNombreInquilino = formulario.nombre_inquilino.trim();
+    const trimmedApellidoP = formulario.apellino_paterno_inquilino.trim();
+    const trimmedApellidoM = formulario.apellino_materno_inquilino.trim();
     try {
       const response = await axios.post(
         `${REACT_APP_SERVER_URL}/api/getInquilinosbyDepartamento`,
@@ -323,7 +325,13 @@ function NuevoInquilino() {
         return;
       }
       const codigo = await verificarYGenerarCodigo();
-      const nuevoFormulario = { ...formulario, codigo_inquilino: codigo };
+      const nuevoFormulario = {
+        ...formulario,
+        codigo_inquilino: codigo,
+        nombre_inquilino: trimmedNombreInquilino,
+        apellino_paterno_inquilino: trimmedApellidoP,
+        apellino_materno_inquilino: trimmedApellidoM,
+      };
       const resultado = await axios.post(
         `${REACT_APP_SERVER_URL}/api/registrarInquilino`,
         nuevoFormulario

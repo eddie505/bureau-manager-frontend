@@ -48,28 +48,55 @@ function NuevoCondominio() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (formulario.nombre_condominio.trim() === "") {
+
+    const trimmedNombreCondominio = formulario.nombre_condominio.trim();
+    const trimmedDireccionCondominio = formulario.direccion_condominio.trim();
+
+    if (trimmedNombreCondominio === "") {
       setErrorCorreo("*Ingrese un nombre de condominio");
     }
-    if (formulario.direccion_condominio.trim() === "") {
+    if (trimmedDireccionCondominio === "") {
       setErrorContraseña("*Ingrese una direccion de condominio");
     }
+    try {
+      const response = await axios.get(
+        `${REACT_APP_SERVER_URL}/api/getCondominios/${id_administrador}`
+      );
+      const condominioExiste = response.data.find(
+        (condominio) => condominio.nombre_condominio === trimmedNombreCondominio
+      );
+      if (condominioExiste) {
+        setErrorCorreo("Este condominio ya existe");
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error al obtener los condominios");
+    }
     if (
-      formulario.nombre_condominio.trim() !== "" &&
-      formulario.direccion_condominio.trim() !== "" &&
+      trimmedNombreCondominio !== "" &&
+      trimmedDireccionCondominio !== "" &&
       formulario.id_administrador &&
       formulario.admin_condominio
     ) {
       try {
         const resultado = await axios.post(
           `${REACT_APP_SERVER_URL}/api/registrarCondominio`,
-          formulario
+          {
+            ...formulario,
+            nombre_condominio: trimmedNombreCondominio,
+            direccion_condominio: trimmedDireccionCondominio,
+          }
         );
         if (resultado.data === 200) {
           setVisible(true);
 
-          formulario.nombre_condominio = "";
-          formulario.direccion_condominio = "";
+          setFormulario({
+            nombre_condominio: "",
+            direccion_condominio: "",
+            admin_condominio: "EDITH ROGELIA QUIÑONES BONILLA",
+            id_administrador: id_administrador,
+          });
           window.location.reload();
         } else {
           alert(resultado.data);

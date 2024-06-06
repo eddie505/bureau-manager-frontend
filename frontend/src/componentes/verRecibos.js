@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   FaArrowCircleLeft,
@@ -16,6 +16,7 @@ function VerRecibo() {
 
   const [mensajeExito, setMensajeExito] = useState("");
   const [mensajeAdvertencia, setMensajeAdvertencia] = useState("");
+  const [mensajeError, setMensajeError] = useState("");
 
   const [paginaActual, setPaginaActual] = useState(1);
   const [registrosPorPagina] = useState(10);
@@ -167,16 +168,21 @@ function VerRecibo() {
           `${REACT_APP_SERVER_URL}/api/enviarRecibosCorreoElectronico`,
           recibosSeleccionados
         );
-        if (resultado.data === 200) {
+        if (resultado.data === 200 || resultado.status === 200) {
           setVisible(true);
           setMensajeExito("Recibos enviados correctamente");
+          setMensajeError("");
           setRecibosSeleccionados([]);
         } else {
-          alert(resultado.data);
+          alert("Error al enviar correos");
+          setMensajeError("Error al enviar correos");
+          setMensajeExito("");
         }
       } catch (error) {
         console.error(error);
-        alert("Error al rcrear correos");
+        alert("Error al enviar correos");
+        setMensajeError("Error al enviar correos");
+        setMensajeExito("");
       }
     } else {
       try {
@@ -197,9 +203,13 @@ function VerRecibo() {
 
         setVisible(true);
         setRecibosSeleccionados([]);
+        setMensajeExito("PDF generado correctamente");
+        setMensajeError("");
       } catch (error) {
         console.error(error);
         alert("Error al crear el PDF");
+        setMensajeError("Error al crear el PDF");
+        setMensajeExito("");
       }
     }
   };
@@ -409,13 +419,13 @@ function VerRecibo() {
           className="Aceptado"
           style={{ display: visible ? "block" : "none" }}
         >
-          Recibo descargado
+          {mensajeExito}
         </div>
         <div
-          className="mensajeExito"
+          className="error-message"
           style={{ display: visible ? "block" : "none" }}
         >
-          {mensajeExito}
+          {mensajeError}
         </div>
         <br />
         <div className="select-container">

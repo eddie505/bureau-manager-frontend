@@ -28,6 +28,7 @@ form {
 
 .fromMenu {
   width: 600px;
+  background-color: #ffffff;
 }
 
 .fromInquilino {
@@ -127,7 +128,7 @@ form::before {
 }
 
 .body1 {
-  background-image: url("/src/img/backk.jpg");
+  background-image: url("../img/backk.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -136,12 +137,21 @@ form::before {
   height: 100vh;
 }
 .body2 {
-  background-color: whitesmoke;
+  background-color: #b5bac9;
   background-size: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.body3 {
+  background-image: url("../img/fondoedificios.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 h1,
 h2 {
@@ -187,23 +197,6 @@ input[type="date"] {
   transition: all 0.3s ease;
   width: 160px;
 }
-.container-cuotas {
-  display: flex;
-  padding: 10px;
-}
-
-.column-cuotas {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0 20px;
-  padding: 20px;
-}
-
-.item-cuotas {
-  margin: 10px 0;
-  padding: 5px;
-}
 input[type="month"] {
   background-color: #e6e6e6;
   border-color: #000000;
@@ -225,7 +218,7 @@ input[type="file"] {
 }
 
 button[type="submit"] {
-  background-color: #4caf50;
+  background-color: #1b6953;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -236,7 +229,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #3e8e41;
+  background-color: #1e725a;
 }
 
 input[type="text"]:hover,
@@ -348,7 +341,7 @@ select:hover {
 }
 
 .Aceptado {
-  width: 120px;
+  width: 180px;
   height: 40px;
   background-color: #3e8e41;
   color: white;
@@ -401,15 +394,23 @@ p {
 
 .navbar {
   position: fixed;
-  top: 0;
   left: 0;
+  top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #163c40;
+  background-color: #173c40;
   height: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.navv {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  height: 50px;
 }
 
 .menu-bars {
@@ -423,25 +424,12 @@ p {
   width: 250px;
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: -100%;
   transition: 850ms;
   z-index: 1500;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #1b6953 #163c40;
-}
-
-.nav-menu::-webkit-scrollbar {
-  width: 8px;
-}
-
-.nav-menu::-webkit-scrollbar-thumb {
-  background-color: #1b6953;
-  border-radius: 10px;
 }
 
 .nav-menu.active {
@@ -553,6 +541,14 @@ span {
   width: 80%;
   max-width: 500px;
 }
+.modal-content11 {
+  background-color: #fefefe;
+  margin: 4% auto 15% auto;
+  border: 1px solid #000000;
+  width: 400px;
+  padding-bottom: 30px;
+  border-radius: 18px;
+}
 
 .condominio-btn {
   display: block;
@@ -635,4 +631,21 @@ span {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.inputtt {
+  width: calc(100% - 24px);
+  padding: 12px 20px;
+  margin: 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  border-radius: 8px;
+}
+.formmm {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
 }

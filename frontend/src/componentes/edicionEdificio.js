@@ -166,10 +166,21 @@ function EditoEdificio() {
       setErrorEdificio2("Debes ingresar un nombre para el edificio");
       return;
     }
+    const trimmedNombreEdificio = formulario.nombre_edificio.trim();
+    const edificioExiste = edificios.find(
+      (c) => c.nombre_edificio === trimmedNombreEdificio
+    );
+    if (edificioExiste) {
+      setErrorEdificio2("Ya existe un edificio registrado con ese nombre");
+      return;
+    }
     try {
       const resultado = await axios.post(
         `${REACT_APP_SERVER_URL}/api/actualizarEdificio`,
-        formulario
+        {
+          ...formulario,
+          nombre_edificio: trimmedNombreEdificio,
+        }
       );
       if (resultado.data === 200) {
         setVisible(true);

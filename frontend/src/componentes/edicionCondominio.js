@@ -121,18 +121,33 @@ function EditoCondominio() {
     }
     if (formulario.nombre_condominio.trim() === "") {
       setErrorNombre("*Ingrese un nombre de condominio");
+      return;
     }
     if (formulario.direccion_condominio.trim() === "") {
       setErrorDireccion("*Ingrese una direccion de condominio");
+      return;
+    }
+    const condominioExiste = condominios.find(
+      (c) => c.nombre_condominio === formulario.nombre_condominio.trim()
+    );
+    if (condominioExiste) {
+      setErrorNombre("Nombre de condominio ya existe");
+      return;
     }
     if (
       formulario.nombre_condominio.trim() !== "" &&
       formulario.direccion_condominio.trim() !== ""
     ) {
+      const trimmedNombreCondominio = formulario.nombre_condominio.trim();
+      const trimmedDireccionCondominio = formulario.direccion_condominio.trim();
       try {
         const resultado = await axios.post(
           `${REACT_APP_SERVER_URL}/api/actualizarCondominio`,
-          formulario
+          {
+            ...formulario,
+            nombre_condominio: trimmedNombreCondominio,
+            direccion_condominio: trimmedDireccionCondominio,
+          }
         );
         if (resultado.data === 200) {
           setVisible(true);

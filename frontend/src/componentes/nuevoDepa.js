@@ -130,10 +130,31 @@ function EditoEdificio() {
       setErrorDepa("Ingrese un nombre/numero del departamento");
       return;
     }
+    const trimmedNumeroDepartamento = formulario.numero_departamento.trim();
     try {
+      const response = await axios.post(
+        `${REACT_APP_SERVER_URL}/api/getDepartamentosbyEdificios`,
+        {
+          id_edificio: formulario.id_edificio,
+        }
+      );
+
+      const departamentoExistente = response.data.some(
+        (departamento) =>
+          departamento.numero_departamento === trimmedNumeroDepartamento
+      );
+
+      if (departamentoExistente) {
+        setErrorDepa("El departamento ya existe en este edificio");
+        return;
+      }
+
       const resultado = await axios.post(
         `${REACT_APP_SERVER_URL}/api/registrarDepartamento`,
-        formulario
+        {
+          ...formulario,
+          numero_departamento: trimmedNumeroDepartamento,
+        }
       );
       if (resultado.data === 200) {
         setVisible(true);
