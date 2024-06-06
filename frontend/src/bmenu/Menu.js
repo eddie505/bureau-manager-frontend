@@ -6,7 +6,7 @@ import * as MdIcons from "react-icons/md";
 import * as VscIcons from "react-icons/vsc";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
-export default MenuDatos = [
+const MenuDatos = [
   {
     title: "Inicio",
     path: "/MenuPrincipal",
@@ -68,3 +68,4 @@ export default MenuDatos = [
     cName: "nav-text",
   },
 ];
+export default MenuDatos;
