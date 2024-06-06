@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../img/logo2.png";
 import { useAuth } from "../AuthContext.js";
@@ -147,8 +147,30 @@ function Formulario() {
             Correo electrónico o contraseña incorrectos
           </div>
           <p>
-            ¿No te has registrado?{" "}
-            <Link to="/RegistrarCuenta">Crear Cuenta</Link>
+            Consulta los{" "}
+            <a href="/terminos.html" target="_blank" rel="noopener noreferrer">
+              Términos y condiciones
+            </a>
+          </p>
+          <p>
+            Y el{" "}
+            <a
+              href="/aviso_privacidad.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aviso de privacidad
+            </a>
+          </p>
+          <p>
+            ¿Necesitas ayuda? -{" "}
+            <a
+              href="http://bureau-manager.mx"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Soporte
+            </a>
           </p>
         </form>
       </div>

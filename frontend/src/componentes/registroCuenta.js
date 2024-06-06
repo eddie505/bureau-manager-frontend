@@ -101,7 +101,7 @@ function RegistrarCuenta() {
   };
 
   const isValidName = (name) => {
-    const regex = /^[a-zA-Z\s]*$/;
+    const regex = /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]*$/;
     return regex.test(name);
   };
 

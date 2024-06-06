@@ -1,6 +1,6 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext.js";
 import { REACT_APP_SERVER_URL } from "../config.js";
 
@@ -49,7 +49,9 @@ function MenuInicial() {
     <>
       <form className="fromMenu" style={{ marginTop: "50px" }}>
         <h1>Bienvenido administrador(a):</h1>
-        <h1>{adminName}</h1>
+        <h1>
+          {adminName} {adminApellidoP} {adminApellidoM}
+        </h1>
 
         <div>
           <h1>¿Que puedes hacer?</h1>

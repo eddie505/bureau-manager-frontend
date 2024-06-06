@@ -66,6 +66,17 @@ function Menu() {
                         </a>
                       </li>
                     );
+                  } else if (item.action === "logout") {
+                    return (
+                      <li
+                        key={index}
+                        className={item.cName}
+                        onClick={handleLogout}
+                      >
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </li>
+                    );
                   } else {
                     return (
                       <li key={index} className={item.cName}>

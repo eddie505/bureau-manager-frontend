@@ -1,3 +1,4 @@
+import React from "react";
 import Menu from "../bmenu/Menu.js";
 
 const Layout = ({ children }) => {

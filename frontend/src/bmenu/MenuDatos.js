@@ -60,11 +60,13 @@ export const MenuDatos = [
     path: "http://bureau-manager.mx",
     icon: <MdIcons.MdContactSupport />,
     cName: "nav-text",
+    external: true,
   },
   {
     title: "Cerrar sesión",
     path: "#",
+    action: "logout",
     icon: <RiLogoutBoxLine />,
-    cName: "nav-text",
+    cName: "nav-text logout-item",
   },
 ];
