@@ -31,9 +31,9 @@ function RegistrarCuotas() {
         console.error("Error al obtener condominios", error);
       });
 
-    document.body.classList.add("body1");
+    document.body.classList.add("body2");
     return () => {
-      document.body.classList.remove("body1");
+      document.body.classList.remove("body2");
     };
   });
 

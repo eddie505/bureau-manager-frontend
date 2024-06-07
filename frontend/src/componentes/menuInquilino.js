@@ -19,10 +19,10 @@ function NuevoCondominio() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    document.body.classList.add("body4");
+    document.body.classList.add("body2");
 
     return () => {
-      document.body.classList.remove("body4");
+      document.body.classList.remove("body2");
     };
   }, []);
 

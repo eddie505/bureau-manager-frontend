@@ -39,10 +39,10 @@ function MenuInicial() {
     navigate("/");
   };
   useEffect(() => {
-    document.body.classList.add("body1");
+    document.body.classList.add("body2");
     fetchAdminInfo();
     return () => {
-      document.body.classList.remove("body1");
+      document.body.classList.remove("4");
     };
   }, []);
   return (
