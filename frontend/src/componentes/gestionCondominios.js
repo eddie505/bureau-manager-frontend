@@ -1,10 +1,8 @@
-/* eslint-disable */
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
-import { REACT_APP_SERVER_URL } from "../config.js";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { REACT_APP_SERVER_URL } from "../config.js";
 
 function CondominiosComponent() {
   const authData = JSON.parse(localStorage.getItem("authData"));
@@ -91,7 +89,6 @@ function CondominiosComponent() {
         `${REACT_APP_SERVER_URL}/api/obtenerCuota/${id_edificio}`
       );
       setCuotas(results.data[0]);
-      console.log(cuotas);
     } catch (error) {
       console.error("Error al obtener las cuotas", error);
     }
@@ -166,10 +163,10 @@ function CondominiosComponent() {
                         selectedEdificio.id_edificio ===
                           edificio.id_edificio && (
                           <div>
-                            <p style={{textAlign: "left"}}>
+                            <p style={{ textAlign: "left" }}>
                               Cuota ordinaria base: {cuotas && cuotas.cuota_base ? `$${cuotas.cuota_base}` : 'No definida'}
                             </p>
-                            <p style={{textAlign: "left"}}>
+                            <p style={{ textAlign: "left" }}>
                               Cuota ordinaria por estacionamiento: {cuotas && cuotas.cuota_extra ? `$${cuotas.cuota_extra}` : 'No definida'}
                             </p>
                             <br />
