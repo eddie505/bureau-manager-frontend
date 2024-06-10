@@ -30,6 +30,10 @@ function CondominiosComponent() {
 
   useEffect(() => {
     fetchCondominios();
+    document.body.classList.add("body1");
+    return () => {
+      document.body.classList.remove("body1");
+    }
   }, []);
 
   const fetchCondominios = async () => {
