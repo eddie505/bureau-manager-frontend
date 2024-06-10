@@ -30,9 +30,9 @@ function CondominiosComponent() {
 
   useEffect(() => {
     fetchCondominios();
-    document.body.classList.add("body1");
+    document.body.classList.add("body2");
     return () => {
-      document.body.classList.remove("body1");
+      document.body.classList.remove("body2");
     }
   }, []);
 
@@ -82,7 +82,7 @@ function CondominiosComponent() {
           { id_edificio: edificio.id_edificio }
         );
         setSelectedEdificio({ ...edificio, departamentos: response.data });
-        fetchCuotasbyEdificio(edificio.id_edificio);
+        fetchCuotasByEdificio(edificio.id_edificio);
       } catch (error) {
         console.error("Error al obtener departamentos", error);
       }
