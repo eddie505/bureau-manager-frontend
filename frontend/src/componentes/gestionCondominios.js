@@ -166,12 +166,11 @@ function CondominiosComponent() {
                         selectedEdificio.id_edificio ===
                           edificio.id_edificio && (
                           <div>
-                            <p style={{ textAlign: "left" }}>
-                              Cuota ordinaria base: ${cuotas.cuota_base}
+                            <p style={{textAlign: "left"}}>
+                              Cuota ordinaria base: {cuotas && cuotas.cuota_base ? `$${cuotas.cuota_base}` : 'No definida'}
                             </p>
-                            <p style={{ textAlign: "left" }}>
-                              Cuota ordinaria por estacionamiento: $
-                              {cuotas.cuota_extra}
+                            <p style={{textAlign: "left"}}>
+                              Cuota ordinaria por estacionamiento: {cuotas && cuotas.cuota_extra ? `$${cuotas.cuota_extra}` : 'No definida'}
                             </p>
                             <br />
                             <p style={{ textAlign: "left" }}>
